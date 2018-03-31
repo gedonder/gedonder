@@ -1,0 +1,723 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Raspberry Pi short reference</title>
+<!-- 2018-03-31 Sat 11:31 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Tina Dijkshoorn" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="/10A.css" />
+<link rel="stylesheet" type="text/css" href="https://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+
+<script type="text/javascript" src=""http://orgmode.org/org-info.js"">
+/**
+ *
+ * @source: "http://orgmode.org/org-info.js"
+ *
+ * @licstart  The following is the entire license notice for the
+ *  JavaScript code in "http://orgmode.org/org-info.js".
+ *
+ * Copyright (C) 2012-2013 Free Software Foundation, Inc.
+ *
+ *
+ * The JavaScript code in this tag is free software: you can
+ * redistribute it and/or modify it under the terms of the GNU
+ * General Public License (GNU GPL) as published by the Free Software
+ * Foundation, either version 3 of the License, or (at your option)
+ * any later version.  The code is distributed WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+ *
+ * As additional permission under GNU GPL version 3 section 7, you
+ * may distribute non-source (e.g., minimized or compacted) forms of
+ * that code without the copy of the GNU GPL normally required by
+ * section 4, provided you include this license notice and a URL
+ * through which recipients can access the Corresponding Source.
+ *
+ * @licend  The above is the entire license notice
+ * for the JavaScript code in "http://orgmode.org/org-info.js".
+ *
+ */
+</script>
+
+<script type="text/javascript">
+
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+
+<!--/*--><![CDATA[/*><!--*/
+org_html_manager.set("TOC_DEPTH", "2");
+org_html_manager.set("LINK_HOME", "");
+org_html_manager.set("LINK_UP", "");
+org_html_manager.set("LOCAL_TOC", "1");
+org_html_manager.set("VIEW_BUTTONS", "0");
+org_html_manager.set("MOUSE_HINT", "underline");
+org_html_manager.set("FIXED_TOC", "0");
+org_html_manager.set("TOC", "2");
+org_html_manager.set("VIEW", "info");
+org_html_manager.setup();  // activate after the parameters are set
+/*]]>*///-->
+</script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Raspberry Pi short reference</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">Make SD disk - MAC OS X</a>
+<ul>
+<li><a href="#sec-1-1">Option 1: the hackers way</a></li>
+<li><a href="#sec-1-2">Option 2: the Noob way</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">Setup on SD</a></li>
+<li><a href="#sec-3">Setup</a></li>
+<li><a href="#sec-4">Network</a>
+<ul>
+<li><a href="#sec-4-1">Network problems</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">Simple Unix commands</a></li>
+<li><a href="#sec-6">AFP</a></li>
+<li><a href="#sec-7">Talk with windows by Samba</a></li>
+<li><a href="#sec-8">Change host name</a></li>
+<li><a href="#sec-9">Add hard disk</a></li>
+<li><a href="#sec-10">Video Web cam</a></li>
+<li><a href="#sec-11">VNC  remote desktop</a></li>
+<li><a href="#sec-12">Apache webserver</a></li>
+<li><a href="#sec-13">Sound</a></li>
+<li><a href="#sec-14">Node-RED</a></li>
+<li><a href="#sec-15">Install database mongo</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Make SD disk - MAC OS X</h2>
+<div class="outline-text-2" id="text-1">
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">Option 1: the hackers way</h3>
+<div class="outline-text-3" id="text-1-1">
+<div class="org-src-container">
+
+<pre class="src src-org">df -h
+unzip ~/Downloads/2012-12-16-wheezy-raspbian.zip
+
+diskutil list    //find the correct /dev/diskx
+diskutil unmountDisk /dev/disk2 
+
+sudo dd bs=1m if=~/Downloads/2012-10-28-wheezy-raspbian/2012-12-16-wheezy-raspbian.img of=/dev/disk1
+
+sudo dd bs=1m if=~/Downloads/2017-03-02-raspbian-jessie.img of=/dev/disk2
+
+CTRL T gives information about process
+
+diskutil mountDisk /dev/diskx
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">Option 2: the Noob way</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+format disk met SDFormat option full
+</p>
+
+<p>
+copy NOOB files on disk
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Setup on SD</h2>
+<div class="outline-text-2" id="text-2">
+<ol class="org-ol">
+<li>Place an empty file <code>ssh</code> in the root path in order to get ssh access
+</li>
+<li>edit <code>wpa_supplicant.conf</code> add (file is removed after booting): 
+
+<div class="org-src-container">
+
+<pre class="src src-org">ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+network={
+ssid="WIFI"
+psk="Mysecret4"
+scan_ssid=1
+}
+</pre>
+</div>
+</li>
+
+<li>edit config.txt and add:
+<div class="org-src-container">
+
+<pre class="src src-org">#Enable UART
+enable_uart=1
+</pre>
+</div>
+</li>
+</ol>
+
+
+<ol class="org-ol">
+<li>boot and login with 
+<div class="org-src-container">
+
+<pre class="src src-org">ssh pi@rasberry.local password raspberry
+</pre>
+</div>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Setup</h2>
+<div class="outline-text-2" id="text-3">
+<div class="org-src-container">
+
+<pre class="src src-org">sudo raspi-config     // config screen
+sudo apt-get update   // install new versions of software fetch the package list
+sudo apt-get upgrade  // will fetch new versions of packages existing on the machine
+sudo apt-get dist-upgrade  //same as upgrade but also dependencies
+reboot
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">Network</h2>
+<div class="outline-text-2" id="text-4">
+<div class="org-src-container">
+
+<pre class="src src-org">sudo nano /etc/network/interfaces   
+
+iface eth0 inet static //static 
+ address 192.168.1.2 
+ netmask 255.255.255.0 
+ gateway 192.168.1.1 
+
+
+iface eth0 inet dhcp    //DHCP
+allow-hotplug wlan0         //wifi
+iface wlan0 inet dhcp
+wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+
+
+
+sudo more /etc/wpa_supplicant/wpa_supplicant.conf
+
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+network={
+ssid="NAMEWIFIROUTER"
+proto=RSN
+key_mgmt=WPA-PSK
+pairwise=CCMP TKIP
+group=CCMP TKIP
+psk="password"
+
+
+Multiple networks 
+/etc/wpa_supplicant/wpa_supplicant.conf  
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+    ssid="SCHOOLS NETWORK NAME"
+    psk="SCHOOLS PASSWORD"
+    id_str="school"
+}
+
+network={
+    ssid="HOME NETWORK NAME"
+    psk="HOME PASSWORD"
+    id_str="home"
+}
+
+
+/etc/network/interfaces
+auto lo
+
+iface lo inet loopback
+iface eth0 inet dhcp
+
+allow-hotplug wlan0
+iface wlan0 inet manual
+wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+
+iface school inet static
+address 
+gateway 
+netmask 
+
+iface home inet static
+address 
+gateway 
+netmask
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1">Network problems</h3>
+<div class="outline-text-3" id="text-4-1">
+<ol class="org-ol">
+<li>Check that the hardware is connected (lights on both ends) or with iwconfig wlan0 (for WiFi)
+</li>
+<li>Check that the kernel can see the hardware with:
+<div class="org-src-container">
+
+<pre class="src src-org">ifconfig -a
+</pre>
+</div>
+</li>
+
+<li>Check that you active interface has an IP address 
+<div class="org-src-container">
+
+<pre class="src src-org">ifconfig eth0 
+ifconfig wlan0
+</pre>
+</div>
+</li>
+
+<li>Check the kernel routing table 
+<div class="org-src-container">
+
+<pre class="src src-org">route -n (or ip route)
+sudo route add default gw 192.168.2.1 wlan0
+</pre>
+</div>
+</li>
+
+<li>Check you can ping your gateway (you get the gateway address from the route command)
+<div class="org-src-container">
+
+<pre class="src src-org">ping 192.168.2.1
+</pre>
+</div>
+</li>
+<li>Check you can ping 8.8.8.8 (Google's DNS server)
+<div class="org-src-container">
+
+<pre class="src src-org">ping 8.8.8.8
+</pre>
+</div>
+</li>
+<li>Check you can resolve host names (ping google.com)
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5">Simple Unix commands</h2>
+<div class="outline-text-2" id="text-5">
+<div class="org-src-container">
+
+<pre class="src src-org">ls            //list files
+pwd
+which  pwd    //where is my pwd command
+lsusb         //show USB devices
+cp   file1 file2    // copy
+mv   file1 file3    // rename of move
+df -h               // show mounted filesystems
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6">AFP</h2>
+<div class="outline-text-2" id="text-6">
+<div class="org-src-container">
+
+<pre class="src src-org">sudo apt-get install netatalk
+in Finder hit ⌘K. Enter afp://192.168.2.150
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7">Talk with windows by Samba</h2>
+<div class="outline-text-2" id="text-7">
+<div class="org-src-container">
+
+<pre class="src src-org">sudo apt-get update
+sudo apt-get install samba
+sudo apt-get install samba samba-common-bin
+nano /etc/samba/smb.conf        //edit config file 
+sudo service samba restart      //iedere keer als je iets veranderd
+
+[global]
+workgroup = workgroup
+server string = %h
+wins support = no
+dns proxy = no
+security = share
+encrypt passwords = yes
+panic action = /usr/share/samba/panic-action %d
+
+[sites]
+path = /mnt/data
+writeable = yes
+broweable = yes
+read only = no
+guest ok = yes
+force user = root
+
+sudo smbpasswd -a john             //add samba user 
+sudo mkdir /mnt/data
+sudo chmod 777 /mnt/data
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8">Change host name</h2>
+<div class="outline-text-2" id="text-8">
+<div class="org-src-container">
+
+<pre class="src src-org">sudo nano /etc/hostname 
+sudo nano /etc/hosts 
+ sudo reboot    //reboot
+sudo halt      //stop
+ sudo adduser john         // make new user
+sudo adduser john sudo    // make user sudo
+sudo nano /etc/sudoers
+ sudo fdisk -l             // show attached drives
+</pre>
+</div>
+<p>
+  
+</p>
+</div>
+</div>
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9">Add hard disk</h2>
+<div class="outline-text-2" id="text-9">
+<div class="org-src-container">
+
+<pre class="src src-org">sudo apt-get install ntfs-3g   //install Read NTFS 
+sudo apt-get install hfsplus
+sudo blkid                // show all 
+nano /etc/fstab           // mount at start up
+/dev/sd       /mnt/data       ntfs    defaults        0       0
+sudo mount -a
+</pre>
+</div>
+<p>
+ 
+</p>
+</div>
+</div>
+<div id="outline-container-sec-10" class="outline-2">
+<h2 id="sec-10">Video Web cam</h2>
+<div class="outline-text-2" id="text-10">
+<div class="org-src-container">
+
+<pre class="src src-org">sudo apt-get install motion
+sudo nano /etc/motion/motion.conf
+daemon  ON
+webcam_localhost  OFF
+sudo service motion start
+sudo nano /etc/default/motion 
+http://192.168.2.111:8081
+
+sudo apt-get install python-opencv
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-11" class="outline-2">
+<h2 id="sec-11">VNC  remote desktop</h2>
+<div class="outline-text-2" id="text-11">
+<div class="org-src-container">
+
+<pre class="src src-org">apt-get install tightvncserver
+tightvncserver
+vncpasswd
+vncserver :1 -geometry 800x600 -depth 24
+
+if server is started on 1 this means port 5901
+in finder (connect icon)  vnc://192.168.2.70:5901
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-12" class="outline-2">
+<h2 id="sec-12">Apache webserver</h2>
+<div class="outline-text-2" id="text-12">
+<div class="org-src-container">
+
+<pre class="src src-org">sudo apt-get install apache2
+sudo nano /etc/apache2/sites-enabled/000-default 
+AddHandler cgi-script .py 
+sudo chmod 777 /usr/lib/cgi-bin/test.py
+
+
+special raspberry ROM's / images:
+
+MotionPi: use the camera for spying or for video
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-org">ssh root@192.168.2.181
+use password after the dash name router
+
+use find to find IP adres of the raspberry 
+Safari: 192.168.2.1
+admin ; no password
+use vi for editing files 
+set wifi password and SIID of the router in /data/etc/wpa_ ...
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-13" class="outline-2">
+<h2 id="sec-13">Sound</h2>
+<div class="outline-text-2" id="text-13">
+<div class="org-src-container">
+
+<pre class="src src-org">sudo apt-get install alsa-utils
+sudo apt-get install mpg321
+sudo apt-get install lame
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-14" class="outline-2">
+<h2 id="sec-14">Node-RED</h2>
+<div class="outline-text-2" id="text-14">
+<p>
+<a href="https://nodered.org/docs/hardware/raspberrypi">https://nodered.org/docs/hardware/raspberrypi</a>
+(curl -sL <a href="https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered">https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered</a>)
+</p>
+
+<p>
+node-red-start
+</p>
+
+<p>
+In safari 192.168.2.70:1880
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-org">npm install node-red-node-mongodb
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-15" class="outline-2">
+<h2 id="sec-15">Install database mongo</h2>
+<div class="outline-text-2" id="text-15">
+<div class="org-src-container">
+
+<pre class="src src-org">sudo apt-get install mongodb-server
+sudo nano /etc/mongodb.conf             //edit config paths 
+/var/log/mongod                       // look into the logs
+mongod                                // start server
+mongod --dbpath /data/db --repair     // repair if RPi shutdown un
+mongo
+show dbs                              // show databases
+use Mydb
+show collections                      // show collections
+db.createCollection(“my collection”)  // Make a collection
+db.mycollection.remove()              // remove collection
+
+db.addUser( { user: "joe",
+... pwd: "secret",
+... roles: [ "readWrite", "dbAdmin" ]
+... } )
+http://192.168.2.70:28017             //Webinterface
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Tina Dijkshoorn</p>
+<p class="date">Created: 2018-03-31 Sat 11:31</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 25.3.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
