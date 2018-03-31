@@ -1,4 +1,6 @@
 # gedonder
 
 My short refs
-http://htmlpreview.github.io/?https://github.com/gedonder/gedonder/blob/master/rpi.html
+
+Rasberry pi preview https://rawgit.com/gedonder/gedonder/master/rpi.html
+
