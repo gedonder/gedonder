@@ -1,0 +1,344 @@
+
+#+SETUPFILE: theme-readtheorg.setup
+#+TITLE:     Raspberry Pi short reference
+#+AUTHOR:    Tina Dijkshoorn
+#+EMAIL:     gedonder@gmail.com
+#+OPTIONS:   H:4 num:nil toc:2 p:t
+
+#+INFOJS_OPT: view:info     path:"http://orgmode.org/org-info.js"
+# -*- mode: org; -*-
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://www.pirilampo.org/styles/readtheorg/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://www.pirilampo.org/styles/readtheorg/css/readtheorg.css"/>
+
+#+HTML_HEAD: <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="https://www.pirilampo.org/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="https://www.pirilampo.org/styles/readtheorg/js/readtheorg.js"></script>
+#+BEGIN_COMMENT 
+Compile met CTRL C CTRL E  h h
+ #+END_COMMENT
+
+* Make SD disk - MAC OS X
+The SD card contains the OS and all files
+
+* Roms
+https://volumio.org/get-started/
+https://github.com/volumio/Volumio2
+
+** Option 1: the hackers way
+   #+begin_src org :exports code
+df -h
+unzip ~/Downloads/2012-12-16-wheezy-raspbian.zip
+
+diskutil list    //find the correct /dev/diskx
+diskutil unmountDisk /dev/disk2 
+
+sudo dd bs=1m if=~/Downloads/2012-10-28-wheezy-raspbian/2012-12-16-wheezy-raspbian.img of=/dev/disk1
+
+sudo dd bs=1m if=~/Downloads/2017-03-02-raspbian-jessie.img of=/dev/disk2
+
+CTRL T gives information about process
+
+diskutil mountDisk /dev/diskx
+ #+end_src
+
+** Option 2: the Noob way
+format disk met SDFormat option full
+
+copy NOOB files on disk
+
+* Configure SD for the first installation
+
+1. Place an empty file ~ssh~ in the root path in order to get ssh access
+2. edit =wpa_supplicant.conf= add (file is removed after booting): 
+   #+begin_src org :exports code
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+network={
+ssid="WIFI"
+psk="Mysecret4"
+scan_ssid=1
+}
+#+end_src
+3. edit =config.txt= and add:
+   #+begin_src org :exports code
+#Enable UART
+enable_uart=1
+  #+end_src
+4. boot and login with 
+    #+begin_src org :exports code
+ssh pi@rasberry.local password raspberry
+  #+end_src
+* Initial Setup
+   #+begin_src org :exports code
+
+sudo raspi-config     // config screen
+sudo apt-get update   // install new versions of software fetch the package list
+sudo apt-get upgrade  // will fetch new versions of packages existing on the machine
+sudo apt-get dist-upgrade  //same as upgrade but also dependencies
+reboot
+  #+end_src
+
+* Network
+** Cable 
+    #+begin_src org :exports code
+sudo nano /etc/network/interfaces   
+
+iface eth0 inet static //static 
+ address 192.168.1.2 
+ netmask 255.255.255.0 
+ gateway 192.168.1.1 
+  #+end_src
+** WIFI
+    #+begin_src org :exports code
+
+iface eth0 inet dhcp    //DHCP
+allow-hotplug wlan0         //wifi
+iface wlan0 inet dhcp
+wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+
+
+
+sudo more /etc/wpa_supplicant/wpa_supplicant.conf
+
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+network={
+ssid="NAMEWIFIROUTER"
+proto=RSN
+key_mgmt=WPA-PSK
+pairwise=CCMP TKIP
+group=CCMP TKIP
+psk="password"
+  #+end_src
+** Multiple networks
+Edit =/etc/wpa_supplicant/wpa_supplicant.conf=
+    #+begin_src org :exports code
+
+
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+    ssid="SCHOOLS NETWORK NAME"
+    psk="SCHOOLS PASSWORD"
+    id_str="school"
+}
+
+network={
+    ssid="HOME NETWORK NAME"
+    psk="HOME PASSWORD"
+    id_str="home"
+}
+
+
+/etc/network/interfaces
+auto lo
+
+iface lo inet loopback
+iface eth0 inet dhcp
+
+allow-hotplug wlan0
+iface wlan0 inet manual
+wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+
+iface school inet static
+address 
+gateway 
+netmask 
+
+iface home inet static
+address 
+gateway 
+netmask 
+  #+end_src
+** Network problems
+1. Check that the hardware is connected (lights on both ends) or with iwconfig wlan0 (for WiFi)
+2. Check that the kernel can see the hardware with:
+   #+begin_src org :exports code
+ifconfig -a
+  #+end_src
+
+3. Check that you active interface has an IP address 
+   #+begin_src org :exports code
+ifconfig eth0 
+ifconfig wlan0
+  #+end_src
+
+4. Check the kernel routing table 
+   #+begin_src org :exports code
+route -n (or ip route)
+sudo route add default gw 192.168.2.1 wlan0
+  #+end_src
+
+5. Check you can ping your gateway (you get the gateway address from the route command)
+   #+begin_src org :exports code
+ping 192.168.2.1
+  #+end_src
+6. Check you can ping 8.8.8.8 (Google's DNS server)
+   #+begin_src org :exports code
+ping 8.8.8.8
+  #+end_src
+7. Check you can resolve host names (ping google.com)
+
+* commands
+** Simple Unix commands 
+    #+begin_src org :exports code
+ls            //list files
+pwd
+which  pwd    //where is my pwd command
+lsusb         //show USB devices
+cp   file1 file2    // copy
+mv   file1 file3    // rename of move
+df -h               // show mounted filesystems
+  #+end_src
+** Handy commands
+  #+begin_src org :exports code
+sudo nano /etc/hostname 
+sudo nano /etc/hosts 
+ sudo reboot    //reboot
+sudo halt      //stop
+ sudo adduser john         // make new user
+sudo adduser john sudo    // make user sudo
+sudo nano /etc/sudoers
+ sudo fdisk -l             // show attached drives
+  #+end_src
+* Talk with:
+** Another hard disk
+  #+begin_src org :exports code
+sudo apt-get install ntfs-3g   //install Read NTFS 
+sudo apt-get install hfsplus
+sudo blkid                // show all 
+nano /etc/fstab           // mount at start up
+/dev/sd       /mnt/data       ntfs    defaults        0       0
+sudo mount -a 
+  #+end_src
+ 
+** AFP: Apple talk
+   #+begin_src org :exports code
+sudo apt-get install netatalk
+in Finder hit ⌘K. Enter afp://192.168.2.150
+  #+end_src
+** Windows by Samba
+   #+begin_src org :exports code
+sudo apt-get update
+sudo apt-get install samba
+sudo apt-get install samba samba-common-bin
+nano /etc/samba/smb.conf        //edit config file 
+sudo service samba restart      //iedere keer als je iets veranderd
+
+[global]
+workgroup = workgroup
+server string = %h
+wins support = no
+dns proxy = no
+security = share
+encrypt passwords = yes
+panic action = /usr/share/samba/panic-action %d
+
+[sites]
+path = /mnt/data
+writeable = yes
+broweable = yes
+read only = no
+guest ok = yes
+force user = root
+
+sudo smbpasswd -a john             //add samba user 
+sudo mkdir /mnt/data
+sudo chmod 777 /mnt/data
+  #+end_src
+** Video Web cam
+  #+begin_src org :exports code
+sudo apt-get install motion
+sudo nano /etc/motion/motion.conf
+daemon  ON
+webcam_localhost  OFF
+sudo service motion start
+sudo nano /etc/default/motion 
+http://192.168.2.111:8081
+
+sudo apt-get install python-opencv
+  #+end_src
+* VNC  remote desktop
+  #+begin_src org :exports code
+apt-get install tightvncserver
+tightvncserver
+vncpasswd
+vncserver :1 -geometry 800x600 -depth 24
+
+if server is started on 1 this means port 5901
+in finder (connect icon)  vnc://192.168.2.70:5901
+   #+end_src
+* Apache webserver
+  #+begin_src org :exports code
+sudo apt-get install apache2
+sudo nano /etc/apache2/sites-enabled/000-default 
+AddHandler cgi-script .py 
+sudo chmod 777 /usr/lib/cgi-bin/test.py
+  #+end_src
+
+special raspberry ROM's / images:
+* MotionPi: use the camera for spying or for video
+  #+begin_src org :exports code
+ssh root@192.168.2.181
+use password after the dash name router
+
+use find to find IP adres of the raspberry 
+Safari: 192.168.2.1
+admin ; no password
+use vi for editing files 
+set wifi password and SIID of the router in /data/etc/wpa_ ... 
+  #+end_src
+
+* Sound
+#+begin_src org :exports code
+sudo apt-get install alsa-utils
+sudo apt-get install mpg321
+sudo apt-get install lame
+#+end_src
+* Node-RED
+
+https://nodered.org/docs/hardware/raspberrypi
+(curl -sL https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered)
+
+node-red-start
+
+In safari =192.168.2.70:1880=
+
+   #+begin_src org :exports code
+npm install node-red-node-mongodb
+  #+end_src
+
+* Install database mongo
+   #+begin_src org :exports code
+sudo apt-get install mongodb-server
+sudo nano /etc/mongodb.conf             //edit config paths 
+/var/log/mongod                       // look into the logs
+mongod                                // start server
+mongod --dbpath /data/db --repair     // repair if RPi shutdown un
+mongo
+show dbs                              // show databases
+use Mydb
+show collections                      // show collections
+db.createCollection(“my collection”)  // Make a collection
+db.mycollection.remove()              // remove collection
+
+db.addUser( { user: "joe",
+... pwd: "secret",
+... roles: [ "readWrite", "dbAdmin" ]
+... } )
+http://192.168.2.70:28017             //Webinterface
+  #+end_src
+* On the Apple
+** Connect to SD card
++Find the  the partition indentifier on the disk
++Create a mount point
++Mount the SD Card
+
+   #+begin_src org :exports code
+diskutil list
+sudo mkdir /Volumes/raspberry
+sudo ext4fuse /dev/disk2s2 /Volumes/raspberry -o allow_other
+  #+end_src
