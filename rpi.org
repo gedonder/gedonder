@@ -333,9 +333,9 @@ http://192.168.2.70:28017             //Webinterface
   #+end_src
 * On the Apple
 ** Connect to SD card
-+Find the  the partition indentifier on the disk
-+Create a mount point
-+Mount the SD Card
+- Find the  the partition indentifier on the disk
+- Create a mount point
+- Mount the SD Card
 
    #+begin_src org :exports code
 diskutil list
